@@ -29,5 +29,6 @@ export async function getHistory(req: Request, res: Response) {
     .take(30)
     .getMany();
 
+  res.append('Cache-Control': 'max-age=10');
   res.json(transactionHistory);
 }
