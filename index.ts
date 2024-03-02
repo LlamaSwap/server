@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { initLlamaswapDB } from "./db/init";
 import saveEvent from "./routes/saveEvent";
 import { getHistory } from "./routes/getHistory";
