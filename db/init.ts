@@ -14,8 +14,6 @@ function getAppDataSource() {
       database: "content",
       entities: [SwapEvent, PermitBlackList],
       logging: false,
-      synchronize: true,
-      migrationsRun: true,
       url: process.env.AGGREGATOR_DB_URL,
     });
   return AppDataSource;
