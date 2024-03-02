@@ -22,6 +22,13 @@ const errorHandler = (func:(req:Request, res:Response)=>Promise<any>) => {
   }
 }
 
+app.use((req, res, next) => {
+  res.append('Access-Control-Allow-Origin', '*');//['https://'+FRONTEND_DOMAIN]);
+  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.append('Access-Control-Allow-Headers', 'Content-Type, authorization');
+  next();
+});
+
 app.post("/saveEvent", errorHandler(saveEvent));
 app.post("/saveBlacklistPermit", errorHandler(saveBlacklistPemrit));
 app.get("/history", errorHandler(getHistory));
