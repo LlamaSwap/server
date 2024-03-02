@@ -12,10 +12,20 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.text());
 
-app.post("/saveEvent", saveEvent);
-app.post("/saveBlacklistPermit", saveBlacklistPemrit);
-app.get("/history", getHistory);
-app.get("/permitBlacklist", getPermitBlackList);
+const errorHandler = (func:(req:Request, res:Response)=>Promise<any>) => {
+  return async (req:Request, res:Response) => {
+    try{
+      return await func(req, res)
+    } catch(e:any){
+      console.log(e.message)
+    }
+  }
+}
+
+app.post("/saveEvent", errorHandler(saveEvent));
+app.post("/saveBlacklistPermit", errorHandler(saveBlacklistPemrit));
+app.get("/history", errorHandler(getHistory));
+app.get("/permitBlacklist", errorHandler(getPermitBlackList));
 
 app.listen(port, () => {
   console.log(`Server running`);
