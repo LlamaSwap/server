@@ -41,9 +41,12 @@ const saveEvent = async (req: Request, res: Response) => {
     event.realOutput = realOutput;
     event.reportedOutput = reportedOutput;
 
-    const result = await connection.manager.save(event);
+    const result = await connection.manager.insert(SwapEvent, event);
 
-    res.json(result);
+    res.json({
+      message: "Event saved",
+      createdAt: result?.generatedMaps[0]?.createdAt,
+    });
   } catch (e) {
     console.error("Error saving event", e.message, e.stack);
     res.status(500).json({ error: e.message });
