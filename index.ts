@@ -9,7 +9,7 @@ initLlamaswapDB();
 
 const app = express();
 const port = process.env.PORT || 3000;
-app.use(express.json());
+app.use(express.json({ limit: '500kb' }));
 app.use(express.text());
 
 const errorHandler = (func:(req:Request, res:Response)=>Promise<any>) => {
